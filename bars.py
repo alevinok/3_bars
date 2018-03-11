@@ -1,12 +1,15 @@
-import json
+import json, sys
 
 
-def load_data(filepath):
-    pass
+def load_data(file_path):
+    with open(file_path, 'r', encoding='utf-8') as file_handler:
+        json_content = json.load(file_handler)
+    return json_content
 
 
-def get_biggest_bar(data):
-    pass
+def get_biggest_bar(file_data):
+    for atribute_seatsCount in file_data['features']:
+        print(atribute_seatsCount['properties']['Attributes']['SeatsCount'])
 
 
 def get_smallest_bar(data):
@@ -18,4 +21,11 @@ def get_closest_bar(data, longitude, latitude):
 
 
 if __name__ == '__main__':
-    pass
+    try:
+        #path_to_file = sys.argv[1]
+        path_to_file = 'bars.json'
+        get_biggest_bar(load_data(path_to_file))
+    except IndexError:
+        print('Enter the path to the file.')
+    except FileNotFoundError:
+        print('No such file.')
