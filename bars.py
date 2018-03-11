@@ -7,13 +7,19 @@ def load_data(file_path):
     return json_content
 
 
-def get_biggest_bar(file_data):
+def get_seats_count_bar(file_data):
+    lst_seats_count = list()
     for atribute_seatsCount in file_data['features']:
-        print(atribute_seatsCount['properties']['Attributes']['SeatsCount'])
+        lst_seats_count.append(atribute_seatsCount['properties']['Attributes']['SeatsCount'])
+    return lst_seats_count
 
 
-def get_smallest_bar(data):
-    pass
+def get_biggest_bar(seats):
+    return max(seats)
+
+
+def get_smallest_bar(seats):
+    return min(seats)
 
 
 def get_closest_bar(data, longitude, latitude):
@@ -24,7 +30,9 @@ if __name__ == '__main__':
     try:
         #path_to_file = sys.argv[1]
         path_to_file = 'bars.json'
-        get_biggest_bar(load_data(path_to_file))
+        print(get_biggest_bar(get_seats_count_bar(load_data(path_to_file))))
+        print(get_smallest_bar(get_seats_count_bar(load_data(path_to_file))))
+        #get_biggest_bar(load_data(path_to_file))
     except IndexError:
         print('Enter the path to the file.')
     except FileNotFoundError:
