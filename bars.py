@@ -14,22 +14,28 @@ def create_list_seats_count_bar(file_data):
     return list_seats_count
 
 
-def get_biggest_bar(file_data, list_seats_num):
+def get_biggest_bar(file_data, list_seats):
     big_bars_dict = dict()
     for atribut in file_data['features']:
-        if max(list_seats_num) == int(atribut['properties']['Attributes']['SeatsCount']):
+        if max(list_seats) == int(atribut['properties']['Attributes']['SeatsCount']):
             big_bars_dict[atribut['properties']['Attributes']['Name']] \
                 = atribut['properties']['Attributes']['SeatsCount']
     return big_bars_dict
 
 
-def get_smallest_bar(file_data, list_seats_num):
+def get_smallest_bar(file_data, list_seats):
     small_bars_dict = dict()
     for atribut in file_data['features']:
-        if min(list_seats_num) == int(atribut['properties']['Attributes']['SeatsCount']):
+        if min(list_seats) == int(atribut['properties']['Attributes']['SeatsCount']):
             small_bars_dict[atribut['properties']['Attributes']['Name']] \
                     = atribut['properties']['Attributes']['SeatsCount']
     return small_bars_dict
+
+
+def printing_dict_basr(dict_bars):
+    for key, value in dict_bars.items():
+        print('\t', chr(183), '%s: %s мест.' % (key, value))
+    print()
 
 
 def get_closest_bar(data, longitude, latitude):
@@ -40,10 +46,13 @@ if __name__ == '__main__':
     try:
         #path_to_file = sys.argv[1]
         path_to_file = 'bars.json'
-        print('Самый большой бар: %s ' %
-            get_biggest_bar(load_data(path_to_file), create_list_seats_count_bar(load_data(path_to_file))))
-        print('Самый маленький бар: %s ' %
-            get_smallest_bar(load_data(path_to_file), create_list_seats_count_bar(load_data(path_to_file))))
+        parsed_file = load_data(path_to_file)
+        list_seats_bars = create_list_seats_count_bar(load_data(path_to_file))
+        #printing_dict_basr(get_biggest_bar(parsed_file, list_seats_bars))
+        print('Самый большой бар: ')
+        printing_dict_basr(get_biggest_bar(parsed_file, list_seats_bars))
+        print('Самый маленький бар: ')
+        printing_dict_basr(get_smallest_bar(parsed_file, list_seats_bars))
     except IndexError:
         print('Enter the path to the file.')
     except FileNotFoundError:
