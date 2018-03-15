@@ -64,8 +64,8 @@ def get_closest_bar(coordinate_data, user_longitude, user_latitude):
 
 if __name__ == '__main__':
     try:
-        #path_to_file = sys.argv[1]
-        path_to_file = 'bars.json'
+        path_to_file = sys.argv[1]
+        #path_to_file = 'bars.json'
         received_file = load_data(path_to_file)
         seats_bars = create_list_seats_count_bar(received_file)
 
