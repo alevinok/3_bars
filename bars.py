@@ -62,6 +62,16 @@ def get_closest_bar(coordinate_data, user_longitude, user_latitude):
             print('\t%s.' % name_bar)
 
 
+def processing_user_coordinate(received_file, user_longitude, user_latitude):
+    try:
+        float(user_longitude)
+        float(user_latitude)
+        print('\nБлижайший бар: ')
+        coordinate_bars_dict = create_dict_bars_coordinates(received_file)
+        get_closest_bar(coordinate_bars_dict, user_longitude, user_latitude)
+    except ValueError:
+        print('\nВведён неверный формат координат.\n')
+
 if __name__ == '__main__':
     try:
         path_to_file = sys.argv[1]
@@ -80,14 +90,7 @@ if __name__ == '__main__':
         print('\nВведите Ваши координаты: ')
         user_longitude = input('долгота: ')
         user_latitude = input('широта: ')
-        try:
-            float(user_longitude)
-            float(user_latitude)
-            print('\nБлижайший бар: ')
-            coordinate_bars_dict = create_dict_bars_coordinates(received_file)
-            get_closest_bar(coordinate_bars_dict, user_longitude, user_latitude)
-        except ValueError:
-            print('\nВведён неверный формат координат.\n')
+        processing_user_coordinate(received_file, user_longitude, user_latitude)
 
     except IndexError:
         print('Enter the path to the file.')
