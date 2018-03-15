@@ -70,12 +70,12 @@ if __name__ == '__main__':
         seats_bars = create_list_seats_count_bar(received_file)
 
         print('\nСамый большой бар: ')
-        for key, value in get_biggest_bar(received_file, seats_bars):
-            print('\t%s: %s мест.' % (key, value))
+        for bar_name, seats_count in get_biggest_bar(received_file, seats_bars):
+            print('\t%s: %s мест.' % (bar_name, seats_count))
 
         print('\nСамый маленький бар: ')
-        for key, value in get_smallest_bar(received_file, seats_bars):
-            print('\t%s: %s мест.' % (key, value))
+        for bar_name, seats_count in get_smallest_bar(received_file, seats_bars):
+            print('\t%s: %s мест.' % (bar_name, seats_count))
 
         print('\nВведите Ваши координаты: ')
         user_longitude = input('долгота: ')
@@ -84,7 +84,7 @@ if __name__ == '__main__':
             float(user_longitude)
             float(user_latitude)
             print('\nБлижайший бар: ')
-            coordinate_bars_dict = create_dict_bars_coordinates(load_data(path_to_file))
+            coordinate_bars_dict = create_dict_bars_coordinates(received_file)
             get_closest_bar(coordinate_bars_dict, user_longitude, user_latitude)
         except ValueError:
             print('\nВведён неверный формат координат.\n')
