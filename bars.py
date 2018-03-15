@@ -74,26 +74,31 @@ def processing_user_coordinate(received_file, user_longitude, user_latitude):
     except ValueError:
         print('\nВведён неверный формат координат.\n')
 
+
+def main(path_to_file):
+    received_file = load_data(path_to_file)
+
+    print('\nСамый большой бар: ')
+    for bar_name, seats_count in get_biggest_bar(received_file):
+        print('\t%s: %s мест.' % (bar_name, seats_count))
+
+    print('\nСамый маленький бар: ')
+    for bar_name, seats_count in get_smallest_bar(received_file):
+        print('\t%s: %s мест.' % (bar_name, seats_count))
+
+    print('\nВведите Ваши координаты: ')
+    user_longitude = input('долгота: ')
+    user_latitude = input('широта: ')
+    processing_user_coordinate(received_file, user_longitude, user_latitude)
+
+
 if __name__ == '__main__':
     try:
         path_to_file = sys.argv[1]
         #path_to_file = 'bars.json'
-        received_file = load_data(path_to_file)
-
-        print('\nСамый большой бар: ')
-        for bar_name, seats_count in get_biggest_bar(received_file):
-            print('\t%s: %s мест.' % (bar_name, seats_count))
-
-        print('\nСамый маленький бар: ')
-        for bar_name, seats_count in get_smallest_bar(received_file):
-            print('\t%s: %s мест.' % (bar_name, seats_count))
-
-        print('\nВведите Ваши координаты: ')
-        user_longitude = input('долгота: ')
-        user_latitude = input('широта: ')
-        processing_user_coordinate(received_file, user_longitude, user_latitude)
-
+        main(path_to_file)
     except IndexError:
         print('Enter the path to the file.')
     except FileNotFoundError:
         print('No such file.')
+
