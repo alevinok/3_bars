@@ -43,11 +43,13 @@ def get_smallest_bar(file_data, list_seats):
 
 def printing_dict_basr(dict_bars):
     for key, value in dict_bars.items():
-        print('\t', chr(183), '%s: %s мест.' % (key, value))
+        #print('\t', chr(183), '%s: %s мест.' % (key, value))
+        print('\t%s: %s мест.' % (key, value))
 
 
 def printing_closest_basr(name_bar):
-    print('\t', chr(183), '%s.' % name_bar)
+    #print('\t', chr(183), '%s.' % name_bar)
+    print('\t%s.' % name_bar)
 
 
 def euclidean_distance(longitude, latitude, user_longitude, user_latitude):
@@ -56,11 +58,14 @@ def euclidean_distance(longitude, latitude, user_longitude, user_latitude):
                         pow((float(latitude) - float(user_longitude)), 2))
         return distance
     except ValueError:
-        print('Введены неверные координаты.')
-        exit(0)
-
+        return -1
 
 def get_closest_bar(coordinate_data, user_longitude, user_latitude):
+    try:
+        float(user_longitude)
+        float(user_latitude)
+    except ValueError:
+        return print('Введён неверный формат координат.')
     closest_bars_dict = dict()
     distance = list()
     for key, value in coordinate_data.items():
@@ -74,8 +79,8 @@ def get_closest_bar(coordinate_data, user_longitude, user_latitude):
 
 if __name__ == '__main__':
     try:
-        path_to_file = sys.argv[1]
-        #path_to_file = 'bars.json'
+        #path_to_file = sys.argv[1]
+        path_to_file = 'bars.json'
         received_file = load_data(path_to_file)
         list_seats_bars = create_list_seats_count_bar(load_data(path_to_file))
         print('\nСамый большой бар: ')
