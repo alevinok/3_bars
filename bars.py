@@ -30,7 +30,7 @@ def get_biggest_bar(file_data, list_seats):
                 int(atribut['properties']['Attributes']['SeatsCount']):
             big_bars[atribut['properties']['Attributes']['Name']] \
                 = atribut['properties']['Attributes']['SeatsCount']
-    return big_bars
+    return big_bars.items()
 
 
 def get_smallest_bar(file_data, list_seats):
@@ -40,7 +40,7 @@ def get_smallest_bar(file_data, list_seats):
                 int(atribut['properties']['Attributes']['SeatsCount']):
             small_bars[atribut['properties']['Attributes']['Name']] \
                     = atribut['properties']['Attributes']['SeatsCount']
-    return small_bars
+    return small_bars.items()
 
 
 def euclidean_distance(longitude, latitude, user_longitude, user_latitude):
@@ -64,17 +64,17 @@ def get_closest_bar(coordinate_data, user_longitude, user_latitude):
 
 if __name__ == '__main__':
     try:
-        path_to_file = sys.argv[1]
-        #path_to_file = 'bars.json'
+        #path_to_file = sys.argv[1]
+        path_to_file = 'bars.json'
         received_file = load_data(path_to_file)
-        list_seats_bars = create_list_seats_count_bar(load_data(path_to_file))
+        seats_bars = create_list_seats_count_bar(received_file)
 
         print('\nСамый большой бар: ')
-        for key, value in get_biggest_bar(received_file, list_seats_bars).items():
+        for key, value in get_biggest_bar(received_file, seats_bars):
             print('\t%s: %s мест.' % (key, value))
 
         print('\nСамый маленький бар: ')
-        for key, value in get_smallest_bar(received_file, list_seats_bars).items():
+        for key, value in get_smallest_bar(received_file, seats_bars):
             print('\t%s: %s мест.' % (key, value))
 
         print('\nВведите Ваши координаты: ')
