@@ -23,20 +23,22 @@ def create_dict_bars_coordinates(file_data):
     return bars_coordinates
 
 
-def get_biggest_bar(file_data, list_seats):
+def get_biggest_bar(file_data):
     big_bars = dict()
+    seats_bars = create_list_seats_count_bar(file_data)
     for atribut in file_data['features']:
-        if max(list_seats) == \
+        if max(seats_bars) == \
                 int(atribut['properties']['Attributes']['SeatsCount']):
             big_bars[atribut['properties']['Attributes']['Name']] \
                 = atribut['properties']['Attributes']['SeatsCount']
     return big_bars.items()
 
 
-def get_smallest_bar(file_data, list_seats):
+def get_smallest_bar(file_data):
     small_bars = dict()
+    seats_bars = create_list_seats_count_bar(file_data)
     for atribut in file_data['features']:
-        if min(list_seats) == \
+        if min(seats_bars) == \
                 int(atribut['properties']['Attributes']['SeatsCount']):
             small_bars[atribut['properties']['Attributes']['Name']] \
                     = atribut['properties']['Attributes']['SeatsCount']
@@ -77,14 +79,13 @@ if __name__ == '__main__':
         path_to_file = sys.argv[1]
         #path_to_file = 'bars.json'
         received_file = load_data(path_to_file)
-        seats_bars = create_list_seats_count_bar(received_file)
 
         print('\nСамый большой бар: ')
-        for bar_name, seats_count in get_biggest_bar(received_file, seats_bars):
+        for bar_name, seats_count in get_biggest_bar(received_file):
             print('\t%s: %s мест.' % (bar_name, seats_count))
 
         print('\nСамый маленький бар: ')
-        for bar_name, seats_count in get_smallest_bar(received_file, seats_bars):
+        for bar_name, seats_count in get_smallest_bar(received_file):
             print('\t%s: %s мест.' % (bar_name, seats_count))
 
         print('\nВведите Ваши координаты: ')
