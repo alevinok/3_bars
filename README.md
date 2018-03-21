@@ -3,8 +3,8 @@
 На сайте [data.mos.ru](https://data.mos.ru/) есть много разных данных, в том числе список московских баров.  
 Его можно скачать в формате JSON.  Для этого нужно:
 
-1. зарегистрироваться на сайте и получить ключ API;
-2. скачать файл по ссылке вида  https://apidata.mos.ru/v1/features/1796?api_key={place_your_API_key_here}.
+	1. зарегистрироваться на сайте и получить ключ API;
+	2. скачать файл по ссылке вида  https://apidata.mos.ru/v1/features/1796?api_key={place_your_API_key_here}.
 
 А можно не тратить на это время и воспользоваться [ранее скачанным файлом](https://devman.org/fshare/1503831681/4/).
 
@@ -22,7 +22,7 @@
 
 ```bash
 
-$ python bars.py # possibly requires call of python3 executive instead of just python
+$ python bars.py bars.json # possibly requires call of python3 executive instead of just python
 
 Самый большой бар: 
 	 · Спорт бар «Красная машина»: 450 мест.
